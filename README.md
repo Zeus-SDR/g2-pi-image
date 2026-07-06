@@ -49,6 +49,23 @@ There is nothing personal on this image. No saved WiFi, no SSH keys, no password
 
 The ANAN G2 contains a Raspberry Pi Compute Module 4 on the Saturn carrier. This image is for that internal CM4. If your G2 has a 1 GB CM4 it is fine for headless operation, the p2app radio job does not need a desktop.
 
+## Licenses and source
+
+This image bundles other people's software under their own licenses, so it comes
+with the notices and source pointers those licenses require:
+
+* **Saturn** (`p2app` and the FPGA/bench tools) — GPL-3.0, © Laurence Barker.
+  Built unmodified from [`laurencebarker/Saturn`](https://github.com/laurencebarker/Saturn) @ `4b0b76f`.
+* **XDMA driver** — GPL-2.0 (with BSD portions), Xilinx/AMD. **Modified** to build
+  on kernel ≥ 6.13; the patch is in [`patches/`](patches/).
+* **Raspberry Pi OS** — Raspberry Pi Ltd, freely redistributable (Debian).
+
+Full details, license texts, and the exact source/commit for each component are
+in **[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)**, license texts in
+[`LICENSES/`](LICENSES/), and our modifications in [`patches/`](patches/).
+
 ## Credit
 
-Built on Laurence Barker's [Saturn](https://github.com/laurencebarker/Saturn) project. Thanks to the OpenHPSDR and ANAN community.
+Built on Laurence Barker's [Saturn](https://github.com/laurencebarker/Saturn)
+project, with the Xilinx/AMD XDMA driver and Raspberry Pi OS. Thanks to the
+OpenHPSDR and ANAN community.

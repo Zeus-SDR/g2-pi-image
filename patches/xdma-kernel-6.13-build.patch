@@ -1,0 +1,33 @@
+# XDMA driver build fix for Linux kernel >= 6.13 (used on Raspberry Pi OS Trixie,
+# kernel 6.18). Applies to laurencebarker/Saturn -> linuxdriver/xdma/Makefile.
+#
+# The Saturn XDMA driver is Xilinx/AMD's dma_ip_drivers, licensed GPL-2.0 (see
+# LICENSES/GPL-2.0.txt) with BSD-licensed portions (LICENSES/XDMA-BSD.txt).
+# This is a MODIFICATION of that GPL-2.0 code, made 2026-07-05 for the G2 Pi
+# image, published here to satisfy the GPL source-availability requirement.
+#
+# Without both changes the module build fails with:
+#   libxdma_api.h: No such file or directory
+#
+--- a/linuxdriver/xdma/Makefile
++++ b/linuxdriver/xdma/Makefile
+@@ -11,10 +11,15 @@ endif
+ $(warning XVC_FLAGS: $(XVC_FLAGS).)
+
+-topdir := $(shell cd $(src)/.. && pwd)
++# kernel >= 6.13: kbuild changed how $(src) is set for out-of-tree modules, so
++# `cd $(src)/..` resolves to the wrong directory. Derive topdir from this
++# Makefile's own path instead.
++topdir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))/..
+
+ TARGET_MODULE:=xdma
+
+-EXTRA_CFLAGS := -I$(topdir)/include $(XVC_FLAGS)
+-#EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
+-#EXTRA_CFLAGS += -DINTERNAL_TESTING
++# kernel >= 6.13: EXTRA_CFLAGS is no longer honored by kbuild; use ccflags-y.
++ccflags-y := -I$(topdir)/include $(XVC_FLAGS)
++#ccflags-y += -D__LIBXDMA_DEBUG__
++#ccflags-y += -DINTERNAL_TESTING
+
+ ifneq ($(KERNELRELEASE),)
