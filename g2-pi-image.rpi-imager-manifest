@@ -1,0 +1,37 @@
+{
+  "imager": {
+    "devices": [
+      {
+        "name": "Raspberry Pi 4",
+        "tags": [
+          "pi4-64bit",
+          "pi4-32bit"
+        ],
+        "default": false,
+        "icon": "https://downloads.raspberrypi.com/imager/icons/RPi_4.png",
+        "description": "Raspberry Pi 4 Model B, 400, and Compute Module 4 / 4S",
+        "matching_type": "inclusive",
+        "capabilities": []
+      }
+    ]
+  },
+  "os_list": [
+    {
+      "name": "ANAN G2 internal CM4 image",
+      "description": "Raspberry Pi OS Trixie 64-bit with Saturn p2app and the G2 power-button fix",
+      "icon": "https://downloads.raspberrypi.com/raspios_armhf/Raspberry_Pi_OS_(32-bit).png",
+      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.07.05/g2-saturn-trixie64-clean-2026-07-05.img.xz",
+      "website": "https://github.com/Zeus-SDR/g2-pi-image",
+      "release_date": "2026-07-05",
+      "extract_size": 9452954112,
+      "extract_sha256": "ab4a75bd93dfaaa04a204ce44ef1723be03f7d747b20f09d77bb5599dd3a30a4",
+      "image_download_size": 1821794140,
+      "image_download_sha256": "41cecaace018d2680bca788c799da6035ce4b0e1e0fd65fc1a6f64ecab26bd00",
+      "devices": [
+        "pi4-64bit"
+      ],
+      "init_format": "cloudinit-rpi",
+      "architecture": "armv8"
+    }
+  ]
+}

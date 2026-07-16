@@ -4,34 +4,71 @@ A clean, ready to flash Raspberry Pi OS image for the **ANAN G2 internal Compute
 
 It ships with **Raspberry Pi OS Trixie (64 bit)**, the **Saturn `p2app`** running as a systemd service, and the **Trixie power button fix** so the front power button does a clean shutdown. That fix is the reason this image exists: the stock Trixie and Bookworm desktop images leave the power button dead on a screenless G2.
 
-## Download
+## Install it
 
-Grab the latest image from the [Releases page](../../releases/latest). Each release has two files:
+Use the latest official [Raspberry Pi Imager](https://www.raspberrypi.com/software/),
+version **2.0.10 or newer**.
 
-* `g2-saturn-trixie64-clean-YYYY-MM-DD.img.xz` (about 1.7 GB compressed)
-* `.sha256` so you can verify the download
+> [!IMPORTANT]
+> Do **not** download the image and select **Use custom**. A local image does
+> not tell Imager that Trixie's `cloudinit-rpi` customization is required, so
+> the username and password will not be applied. The result is a login prompt
+> with no usable password.
 
-Verify before flashing:
-
-```bash
-sha256sum -c g2-saturn-trixie64-clean-2026-07-05.img.xz.sha256
-```
-
-## Flash it
-
-Use [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
-
-1. Choose **Use custom** and pick the `.img.xz` file. Imager reads `.xz` directly, so there is no need to unzip it.
-2. Click the gear or **Edit Settings** and set **your own** username, password, and (if you use WiFi) your network before writing. See the note below.
-3. Write it to your card and boot the G2.
+1. Download and save
+   [`g2-pi-image.rpi-imager-manifest`](g2-pi-image.rpi-imager-manifest?raw=1).
+   Keep the `.rpi-imager-manifest` filename extension.
+2. Double-click the manifest to open it in Raspberry Pi Imager. If Imager is
+   already open, use **App Options → Content Repository → Edit → Use custom
+   file**, select the manifest, then apply and restart Imager.
+3. Select **Raspberry Pi 4** as the device and **ANAN G2 internal CM4 image**
+   as the operating system.
+4. In **OS Customization**, set the username to exactly **`pi`** and choose
+   your own password. Configure WiFi and SSH there if needed. Do not choose a
+   different username: the Saturn tools and desktop are installed under
+   `/home/pi`.
+5. Select the microSD card, write it, and boot the G2.
 
 On first boot the root filesystem auto expands to fill your card, and fresh SSH host keys are generated automatically.
 
 ## Set your own login
 
-This image ships with **no credentials**. The `pi` account is **locked** until you set a password. Use the Raspberry Pi Imager customization (the gear) to create your username and password, and your WiFi if you need it. Whatever you set there overrides the image, so the login is yours and yours alone.
+This image ships with **no credentials**. The `pi` account is **locked** until
+the manifest-guided Imager customization sets your password. There is no
+default password. Keep the username `pi`; only the password is yours to choose.
 
 Default hostname is `g2pi`. Change it in the Imager if you like.
+
+## Troubleshooting first boot
+
+### The login prompt rejects my password
+
+The card was most likely written through **Use custom**, or with an older
+Imager. Reflash it by opening the manifest and following the steps above. The
+image has no fallback or factory password.
+
+### `/home/pi` appears to belong to the wrong user
+
+Linux stores file ownership as numeric IDs. This image owns `/home/pi` as
+UID/GID `1000:1000`, which is `pi:pi` inside the image. If you mount the card
+on another Linux computer, that computer may display its own UID-1000 username
+instead. That does not mean ownership was lost; do not recursively `chown` the
+card based on the displayed name.
+
+The released image also contains the LightDM login manager, Labwc/Wayland, and
+WayVNC. Booting the card in a different CM4 does not remove those components;
+a passwordless login prompt is the locked-account problem described above.
+
+## Direct image download and verification
+
+The [Releases page](../../releases/latest) contains the compressed `.img.xz`
+and its `.sha256` file for verification and archival use. For installation,
+open the manifest as described above instead of flashing the downloaded image
+through **Use custom**.
+
+```bash
+sha256sum -c g2-saturn-trixie64-clean-2026-07-05.img.xz.sha256
+```
 
 ## What is on it
 
