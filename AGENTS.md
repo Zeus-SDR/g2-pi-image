@@ -49,6 +49,16 @@ Proof, Gates, Review rounds, Needs a human, then the `factory:` footer line.
   offers one.
 - If a conflict cannot be resolved with confidence, stop and report.
 
+## Inside an orchestrated pipeline
+
+When another agent or a pipeline is driving you (the autofix fleet, a `/trio`
+run, a `/ship --swarm` coder brief), the orchestrator owns beats 1 and 4: it
+created your worktree, it owns git, it opens the PR, and it runs the review.
+You do beats 2 and 3 only: shape, implement, test, and leave the evidence in
+`.artifacts/<task>/`. Never commit, push, open a PR, or trigger a review from
+inside a brief unless the brief says so explicitly. The brief overrides the
+"Completing a task" list below.
+
 ## Hard rules that never vary
 
 - Never mention any AI assistant, model or vendor in commits, PR bodies, code
