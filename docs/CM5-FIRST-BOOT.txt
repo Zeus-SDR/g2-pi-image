@@ -1,0 +1,36 @@
+ANAN G2 Raspberry Pi Compute Module 5 image
+=========================================
+
+For the official Raspberry Pi CM5 in a screenless ANAN G2.
+This is not an image for a Radxa CM5 or a preconfigured internal touch panel.
+
+Use Raspberry Pi Imager 2.0.10 or newer with the CM5 manifest from:
+https://github.com/Zeus-SDR/g2-pi-image
+
+Open g2-cm5-pi-image.rpi-imager-manifest in Imager. Select Raspberry Pi 5
+and ANAN G2 internal Raspberry Pi CM5 image. Keep the username exactly pi
+and choose your own password. Enable SSH if you want remote access.
+Do not select the .img.xz using Use custom: it omits the required
+cloudinit-rpi customization. No default password is supplied.
+
+The CM5 eMMC must first be exposed as a USB disk using Raspberry Pi usbboot
+and the G2's programming connector/switch. Follow the G2 manual and the
+official usbboot instructions linked in the repository. Confirm the target
+disk before writing. Preserve the original CM4 and SD card as a backup.
+
+First boot expands the filesystem and generates fresh SSH host keys.
+Allow the existing first-boot expansion process to finish.
+Hostname defaults to g2pi unless changed in Imager.
+
+Includes XDMA for kernel 6.18.34+rpt-rpi-2712. A later kernel update requires
+rebuilding the out-of-tree XDMA driver for that kernel. Source and build
+instructions are included in the repository and /home/pi/github/Saturn.
+
+Verify after boot:
+  uname -r
+  /sbin/modinfo -F vermagic xdma
+  ls /dev/xdma*
+  systemctl status p2app
+
+Packaged by KB2UKA. Saturn by Laurence Barker; XDMA by Xilinx/AMD;
+Raspberry Pi OS by Raspberry Pi Ltd. See THIRD_PARTY_NOTICES.md.

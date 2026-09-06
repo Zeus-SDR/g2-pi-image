@@ -52,6 +52,15 @@ above), documented for transparency:
   `gpio=15=op,dh` LED, and 2 GHz overclock. The stock file is kept as
   `config.txt.stock` on the image.
 
+## CM5 variant (2026-09-06)
+
+The CM5 variant uses the same OS, Saturn revision and modified XDMA source
+as the July CM4 image. It adds XDMA compiled for `6.18.34+rpt-rpi-2712` and
+regenerates that kernel's module indexes. The matching source, including the
+Makefile changes, is included in `/home/pi/github/Saturn/linuxdriver` in the
+image. The standalone `xdma.ko.xz` release asset is covered by the XDMA
+licenses above. See [CM5 build instructions](docs/CM5.md#rebuild-the-artifact).
+
 ## Attribution
 
 Built on **Laurence Barker's [Saturn](https://github.com/laurencebarker/Saturn)**
