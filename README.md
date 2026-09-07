@@ -1,20 +1,27 @@
 # ANAN G2 internal Pi image
 
-A clean, ready to flash Raspberry Pi OS image for the **ANAN G2 internal Compute Module 4**, the small Pi that lives inside the radio and runs the Saturn stack.
+Raspberry Pi OS images for the **ANAN G2 internal Compute Module**, the small Pi that lives inside the radio and runs the Saturn stack. Choose the original Pi 4 / CM4 microSD image, CM5 eMMC image, or CM5 Lite microSD image below.
 
 It ships with **Raspberry Pi OS Trixie (64 bit)**, the **Saturn `p2app`** running as a systemd service, and the **Trixie power button fix** so the front power button does a clean shutdown. That fix is the reason this image exists: the stock Trixie and Bookworm desktop images leave the power button dead on a screenless G2.
 
-## Raspberry Pi CM5
+## Choose your image
 
-A separate [CM5 image and installation guide](docs/CM5.md) adds the matching
-XDMA driver for the **official Raspberry Pi CM5 with eMMC in a screenless
-G2**. Use its
-[`g2-cm5-pi-image.rpi-imager-manifest`](g2-cm5-pi-image.rpi-imager-manifest?raw=1)
-and select Raspberry Pi 5. The original CM4 download and instructions below
-remain available. The CM5 candidate has offline checks and working-radio
-driver evidence; a fresh-flash acceptance test remains pending.
+| G2 module and storage | Download in Raspberry Pi Imager | Instructions | Status |
+|---|---|---|---|
+| Pi 4 / CM4, microSD | [CM4 manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.07.05/g2-pi-image.rpi-imager-manifest) | [CM4 install](#install-it-pi-4--cm4-microsd) | Original release |
+| CM5 with eMMC | [CM5 eMMC manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.06-cm5/g2-cm5-pi-image.rpi-imager-manifest) | [eMMC flashing guide](docs/CM5.md) | Bench-test prerelease |
+| CM5 Lite, microSD (no eMMC) | [CM5 SD manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.07-cm5-sd/g2-cm5-sd-pi-image.rpi-imager-manifest) | [SD flashing guide](docs/CM5-SD.md) | Bench-test prerelease |
 
-## Install it
+[All three image releases](https://github.com/Zeus-SDR/g2-pi-image/releases)
+include a compressed image and SHA-256 verification. Open the appropriate
+manifest to install; select Raspberry Pi 4 for CM4 or Raspberry Pi 5 for CM5.
+An eMMC-equipped CM5 cannot use the carrier's native SD slot. Both CM5
+editions target the official Raspberry Pi module in a screenless G2 and
+include its matching XDMA driver. Fresh-flash acceptance remains pending.
+
+<a id="install-it"></a>
+
+## Install it (Pi 4 / CM4 microSD)
 
 Use the latest official [Raspberry Pi Imager](https://www.raspberrypi.com/software/),
 version **2.0.10 or newer**.
@@ -92,7 +99,7 @@ sha256sum -c g2-saturn-trixie64-clean-2026-07-05.img.xz.sha256
 
 There is nothing personal on this image. No saved WiFi, no SSH keys, no passwords, the machine identity is blanked, host keys are removed so each card generates its own, and logs, shell history, and free space were all wiped. A short `README-FIRST.txt` also lives on the boot partition.
 
-## Hardware
+## Original CM4 hardware
 
 The ANAN G2 contains a Raspberry Pi Compute Module 4 on the Saturn carrier. This image is for that internal CM4. If your G2 has a 1 GB CM4 it is fine for headless operation, the p2app radio job does not need a desktop.
 

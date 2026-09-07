@@ -1,0 +1,42 @@
+ANAN G2 Raspberry Pi CM5 Lite microSD image
+=========================================
+
+For the official Raspberry Pi CM5 Lite (no eMMC) in a screenless ANAN G2.
+A CM5 with eMMC cannot use the carrier's native microSD slot.
+Not for Radxa CM5 or a preconfigured internal touch panel.
+
+Full instructions:
+https://github.com/Zeus-SDR/g2-pi-image/blob/main/docs/CM5-SD.md
+
+Use Raspberry Pi Imager 2.0.10 or newer. Open
+ g2-cm5-sd-pi-image.rpi-imager-manifest
+from the release. Select Raspberry Pi 5, then
+ANAN G2 Raspberry Pi CM5 Lite microSD image.
+Keep the username exactly pi, choose your own password and enable SSH
+if wanted. There is no default password. Do not select the .img.xz through
+Use custom: it omits the required cloudinit-rpi login customization.
+
+Write a 16 GB or larger microSD card in your computer's card reader.
+Verify the destination carefully; writing erases the selected card.
+Let Imager finish writing and verifying, then safely eject the card.
+The human operator inserts it in the G2 carrier with radio power disconnected.
+Keep the normal boot switch positions; no usbboot/eMMC programming is needed.
+
+First boot expands the filesystem and creates fresh SSH host keys.
+Allow several minutes and any first-boot restart to finish.
+Hostname defaults to g2pi unless changed in Imager.
+
+Read-only checks after boot:
+  uname -r
+  /sbin/modinfo -F vermagic xdma
+  ls /dev/xdma*
+  systemctl show p2app -p ActiveState -p NRestarts
+  findmnt -no SOURCE /
+  df -h /
+
+Expected kernel: 6.18.34+rpt-rpi-2712, with a matching XDMA module.
+Fresh CM5 Lite flash/boot, login, expansion and receive acceptance are pending.
+Kernel upgrades require rebuilding XDMA; see docs/CM5.md in the repository.
+
+Packaged by KB2UKA. Saturn by Laurence Barker; XDMA by Xilinx/AMD;
+Raspberry Pi OS by Raspberry Pi Ltd. See THIRD_PARTY_NOTICES.md.

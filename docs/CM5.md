@@ -1,6 +1,6 @@
-# Raspberry Pi CM5 image
+# Raspberry Pi CM5 eMMC image
 
-This second image targets the **official Raspberry Pi Compute Module 5 with
+This image targets the **official Raspberry Pi Compute Module 5 with
 eMMC in a screenless ANAN G2**. It does not configure an internal touch panel
 and is not for the Radxa CM5.
 
@@ -39,7 +39,8 @@ This is a full system replacement; it does not migrate settings or install
 Zeus. Ordinary package/application updates are separate from reimaging.
 
 This guide targets the eMMC model. A **CM5 Lite without eMMC** uses a different
-storage procedure; do not follow the eMMC disk-selection steps for it. A Radxa
+storage procedure: use the [CM5 Lite SD image and card-flashing guide](CM5-SD.md),
+not the eMMC disk-selection steps below. A Radxa
 CM5 is also different hardware and cannot use this image.
 
 ### 1. Gather the downloads and equipment

@@ -21,8 +21,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("image", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--sd", action="store_true", help="package the CM5 Lite microSD edition")
     args = parser.parse_args()
-    filename = "g2-saturn-trixie64-cm5-2026-09-06.img.xz"
+    filename = ("g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz" if args.sd
+                else "g2-saturn-trixie64-cm5-2026-09-06.img.xz")
+    release = "2026.09.07-cm5-sd" if args.sd else "2026.09.06-cm5"
     if args.image.name != filename:
         parser.error(f"this release expects {filename}")
     with args.image.open("rb") as stream:
@@ -40,11 +43,13 @@ def main():
     manifest["imager"]["devices"] = [device]
     entry = manifest["os_list"][0]
     entry.update(
-        name="ANAN G2 internal Raspberry Pi CM5 image",
+        name=("ANAN G2 Raspberry Pi CM5 Lite microSD image" if args.sd
+              else "ANAN G2 internal Raspberry Pi CM5 image"),
         icon=device["icon"],
-        description="Screenless G2: Trixie 64-bit, Saturn p2app and CM5 XDMA driver",
-        url=f"https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.06-cm5/{filename}",
-        release_date="2026-09-06", devices=["pi5-64bit"],
+        description=("Screenless G2 CM5 Lite (no eMMC): microSD, Trixie 64-bit and Saturn" if args.sd
+                     else "Screenless G2: Trixie 64-bit, Saturn p2app and CM5 XDMA driver"),
+        url=f"https://github.com/Zeus-SDR/g2-pi-image/releases/download/{release}/{filename}",
+        release_date="2026-09-07" if args.sd else "2026-09-06", devices=["pi5-64bit"],
         extract_size=raw_size, extract_sha256=raw_hash,
         image_download_size=compressed_size, image_download_sha256=compressed_hash,
     )

@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-# Create a second image from the public CM4 image and the verified CM5 module.
+# Create CM5 eMMC or SD images from the public CM4 image and verified module.
 # Linux host with root, util-linux, kmod, xz, e2fsprogs and Python 3 required.
 set -euo pipefail
-[[ $# == 3 ]] || { echo "usage: $0 BASE.img.xz XDMA.ko.xz NEW.img" >&2; exit 2; }
+[[ $# == 3 || ( $# == 4 && $4 == --sd ) ]] || {
+    echo "usage: $0 BASE.img.xz XDMA.ko.xz NEW.img [--sd]" >&2; exit 2;
+}
+first_boot=CM5-FIRST-BOOT.txt
+if [[ ${4:-} == --sd ]]; then first_boot=CM5-SD-FIRST-BOOT.txt; fi
 [[ $EUID == 0 ]] || { echo 'Run as root on a Linux image-building host.' >&2; exit 2; }
 base=$(realpath "$1")
 driver=$(realpath "$2")
@@ -43,8 +47,13 @@ mount "${loop}p2" "$scratch/root"
 mount "${loop}p1" "$scratch/boot"
 install -D -m 0644 "$driver" "$scratch/root/lib/modules/$kernel/updates/xdma.ko.xz"
 depmod -b "$scratch/root" "$kernel"
-install -m 0644 "$repo/docs/CM5-FIRST-BOOT.txt" "$scratch/boot/README-FIRST.txt"
+install -m 0644 "$repo/docs/$first_boot" "$scratch/boot/README-FIRST.txt"
 bash "$repo/tests/verify-cm5.sh" "$scratch/root" "$scratch/boot"
+if [[ ${4:-} == --sd ]]; then
+    python3 "$repo/tests/verify-cm5-sd.py" "$scratch/root" "$scratch/boot" \
+        "$(blkid -s PARTUUID -o value "${loop}p1")" \
+        "$(blkid -s PARTUUID -o value "${loop}p2")"
+fi
 sync -f "$scratch/root"
 sync -f "$scratch/boot"
 umount "$scratch/boot"

@@ -1,0 +1,36 @@
+{
+  "imager": {
+    "devices": [
+      {
+        "name": "Raspberry Pi 5",
+        "tags": [
+          "pi5-64bit"
+        ],
+        "default": false,
+        "icon": "https://downloads.raspberrypi.com/imager/icons/RPi_5.png",
+        "description": "Raspberry Pi 5 and Compute Module 5",
+        "matching_type": "inclusive",
+        "capabilities": []
+      }
+    ]
+  },
+  "os_list": [
+    {
+      "name": "ANAN G2 Raspberry Pi CM5 Lite microSD image",
+      "description": "Screenless G2 CM5 Lite (no eMMC): microSD, Trixie 64-bit and Saturn",
+      "icon": "https://downloads.raspberrypi.com/imager/icons/RPi_5.png",
+      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.07-cm5-sd/g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz",
+      "website": "https://github.com/Zeus-SDR/g2-pi-image",
+      "release_date": "2026-09-07",
+      "extract_size": 9452954112,
+      "extract_sha256": "1e5af5371c2ea42b0906c2f2b2542940e04803f3c1e39fcda78a213efd31e037",
+      "image_download_size": 1822271096,
+      "image_download_sha256": "9e8d0bd6e32fe24162a17462051de390eb90ef6e2931fa276615c37bd81e6e04",
+      "devices": [
+        "pi5-64bit"
+      ],
+      "init_format": "cloudinit-rpi",
+      "architecture": "armv8"
+    }
+  ]
+}
