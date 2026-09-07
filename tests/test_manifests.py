@@ -1,4 +1,4 @@
-"""Protect Imager customization and board selection for both downloads."""
+"""Protect Imager customization and board selection for all three downloads."""
 import json
 from pathlib import Path
 import unittest
@@ -12,6 +12,7 @@ class ManifestTests(unittest.TestCase):
         for filename, tag in (
             ("g2-pi-image.rpi-imager-manifest", "pi4-64bit"),
             ("g2-cm5-pi-image.rpi-imager-manifest", "pi5-64bit"),
+            ("g2-cm5-sd-pi-image.rpi-imager-manifest", "pi5-64bit"),
         ):
             with self.subTest(filename=filename):
                 manifest = json.loads((REPO / filename).read_text())
@@ -28,8 +29,12 @@ class ManifestTests(unittest.TestCase):
                 self.assertLess(entry["image_download_size"], 2 * 1024**3)
                 self.assertTrue(entry["url"].startswith(
                     "https://github.com/Zeus-SDR/g2-pi-image/releases/download/"))
+                if "cm5-sd" in filename:
+                    self.assertIn("CM5 Lite", entry["name"])
+                    self.assertIn("microSD", entry["name"])
+                    self.assertIn("/2026.09.07-cm5-sd/", entry["url"])
                 urls.add(entry["url"])
-        self.assertEqual(len(urls), 2)
+        self.assertEqual(len(urls), 3)
 
 
 if __name__ == "__main__":
