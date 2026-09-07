@@ -4,6 +4,16 @@ A clean, ready to flash Raspberry Pi OS image for the **ANAN G2 internal Compute
 
 It ships with **Raspberry Pi OS Trixie (64 bit)**, the **Saturn `p2app`** running as a systemd service, and the **Trixie power button fix** so the front power button does a clean shutdown. That fix is the reason this image exists: the stock Trixie and Bookworm desktop images leave the power button dead on a screenless G2.
 
+## Raspberry Pi CM5
+
+A separate [CM5 image and installation guide](docs/CM5.md) adds the matching
+XDMA driver for the **official Raspberry Pi CM5 with eMMC in a screenless
+G2**. Use its
+[`g2-cm5-pi-image.rpi-imager-manifest`](g2-cm5-pi-image.rpi-imager-manifest?raw=1)
+and select Raspberry Pi 5. The original CM4 download and instructions below
+remain available. The CM5 candidate has offline checks and working-radio
+driver evidence; a fresh-flash acceptance test remains pending.
+
 ## Install it
 
 Use the latest official [Raspberry Pi Imager](https://www.raspberrypi.com/software/),
