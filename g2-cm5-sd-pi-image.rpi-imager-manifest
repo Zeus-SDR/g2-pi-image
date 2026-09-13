@@ -19,13 +19,13 @@
       "name": "ANAN G2 Raspberry Pi CM5 Lite microSD image",
       "description": "Screenless G2 CM5 Lite (no eMMC): microSD, Trixie 64-bit and Saturn",
       "icon": "https://downloads.raspberrypi.com/imager/icons/RPi_5.png",
-      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.07-cm5-sd/g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz",
+      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.13-cm5-sd/g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz",
       "website": "https://github.com/Zeus-SDR/g2-pi-image",
-      "release_date": "2026-09-07",
+      "release_date": "2026-09-13",
       "extract_size": 9452954112,
-      "extract_sha256": "1e5af5371c2ea42b0906c2f2b2542940e04803f3c1e39fcda78a213efd31e037",
-      "image_download_size": 1822271096,
-      "image_download_sha256": "9e8d0bd6e32fe24162a17462051de390eb90ef6e2931fa276615c37bd81e6e04",
+      "extract_sha256": "e6e32332b0b0ff7f80e097f8c0c7b73652d4b932b066fbdaa83c4052aa798765",
+      "image_download_size": 1822272448,
+      "image_download_sha256": "2e1caf36cf752c486d1d014dbbaaa8b579398b33cceb089baa89c4eedffbc12d",
       "devices": [
         "pi5-64bit"
       ],

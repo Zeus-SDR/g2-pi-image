@@ -32,7 +32,7 @@ class ManifestTests(unittest.TestCase):
                 if "cm5-sd" in filename:
                     self.assertIn("CM5 Lite", entry["name"])
                     self.assertIn("microSD", entry["name"])
-                    self.assertIn("/2026.09.07-cm5-sd/", entry["url"])
+                    self.assertIn("/2026.09.13-cm5-sd/", entry["url"])
                 urls.add(entry["url"])
         self.assertEqual(len(urls), 3)
 

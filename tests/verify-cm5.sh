@@ -3,6 +3,8 @@
 set -euo pipefail
 root=${1:?usage: verify-cm5.sh ROOT_MOUNT BOOT_MOUNT}
 boot=${2:?usage: verify-cm5.sh ROOT_MOUNT BOOT_MOUNT}
+repo=$(cd "$(dirname "$0")/.." && pwd)
+python3 "$repo/tests/verify-cm-input.py" "$root" "$boot" cm5
 kernel=6.18.34+rpt-rpi-2712
 module="$root/lib/modules/$kernel/updates/xdma.ko.xz"
 test -f "$module" || { echo "FAIL: missing CM5 XDMA module for $kernel"; exit 1; }

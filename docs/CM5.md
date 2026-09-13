@@ -7,7 +7,7 @@ and is not for the Radxa CM5.
 ## What changed from the CM4 image
 
 The July 5 image already contains the CM5 kernel, initramfs and device tree.
-Its boot configuration, `kernel_2712.img` and `bcm2712-rpi-cm5-cm5io.dtb`
+Its `kernel_2712.img` and `bcm2712-rpi-cm5-cm5io.dtb`
 match the running CM5 verified on September 6. Its Saturn revision is
 `4b0b76f345961cfeeb447abc6d8b0373f5743245` (p2app v46).
 
@@ -17,7 +17,8 @@ there are no `/dev/xdma*` devices and p2app repeatedly exits.
 
 The CM5 image adds the module verified on the working CM5, regenerates the
 CM5 module dependency/PCIe alias indexes, and updates the boot-partition
-README. It preserves the original boot settings, Saturn software, first-boot
+README. The September 13 edition also enables CM5 USB 2 host mode for
+keyboard/mouse input. It preserves the other boot settings, Saturn software, first-boot
 expansion and credential cleanup. It contains no Zeus installation or
 operator settings copied from the running radio.
 
@@ -50,7 +51,7 @@ CM5 is also different hardware and cannot use this image.
   A charge-only cable will not work.
 - Ethernet from the G2 to your normal network for first-boot access.
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/), **2.0.10 or newer**.
-- From the [CM5 release](https://github.com/Zeus-SDR/g2-pi-image/releases/tag/2026.09.06-cm5),
+- From the [CM5 release](https://github.com/Zeus-SDR/g2-pi-image/releases/tag/2026.09.13-cm5),
   download **g2-cm5-pi-image.rpi-imager-manifest**. Keep that extension.
   Imager will download and verify the image named in the manifest; you do not
   need to decompress the `.img.xz` yourself.
@@ -222,13 +223,13 @@ In the directory containing both files:
 
 ```bash
 # macOS
-shasum -a 256 -c g2-saturn-trixie64-cm5-2026-09-06.img.xz.sha256
+shasum -a 256 -c g2-saturn-trixie64-cm5-2026-09-13.img.xz.sha256
 # Linux
-sha256sum -c g2-saturn-trixie64-cm5-2026-09-06.img.xz.sha256
+sha256sum -c g2-saturn-trixie64-cm5-2026-09-13.img.xz.sha256
 ```
 
 On Windows PowerShell, run
-`Get-FileHash .\g2-saturn-trixie64-cm5-2026-09-06.img.xz -Algorithm SHA256`
+`Get-FileHash .\g2-saturn-trixie64-cm5-2026-09-13.img.xz -Algorithm SHA256`
 and compare the result with the `.sha256` file. Still use the manifest to
 install so Imager applies the credentials correctly.
 
@@ -242,6 +243,11 @@ CM5 does not boot from the G2's native SD slot. Module replacement is only
 needed for this hardware upgrade; existing CM5 owners leave theirs installed.
 
 ## Verification scope
+
+The September 6 download is missing the CM5 USB host setting. Follow the
+[USB keyboard/mouse repair](USB-INPUT.md) for an existing installation.
+The current builder adds the host overlay and verifies built-in input support;
+the September 13 download contains this correction.
 
 The matching driver runs on KB2UKA's CM5 with p2app active and zero restarts.
 The new image is checked offline for the matching driver, lookup indexes,
@@ -268,9 +274,9 @@ Inputs:
 ```bash
 sudo bash scripts/build-cm5-image.sh \
   g2-saturn-trixie64-clean-2026-07-05.img.xz xdma.ko.xz \
-  g2-saturn-trixie64-cm5-2026-09-06.img
-sudo xz -T2 -6 -k g2-saturn-trixie64-cm5-2026-09-06.img
-python3 scripts/cm5-manifest.py g2-saturn-trixie64-cm5-2026-09-06.img.xz \
+  g2-saturn-trixie64-cm5-2026-09-13.img
+sudo xz -T2 -6 -k g2-saturn-trixie64-cm5-2026-09-13.img
+python3 scripts/cm5-manifest.py g2-saturn-trixie64-cm5-2026-09-13.img.xz \
   rebuilt-cm5.rpi-imager-manifest
 ```
 

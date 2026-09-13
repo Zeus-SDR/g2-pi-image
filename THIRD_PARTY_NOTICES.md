@@ -50,7 +50,9 @@ above), documented for transparency:
 - **`p2app.service`:** a systemd unit that runs `p2app -s -p` at boot.
 - **`config.txt`:** Trixie base plus the carried-over `gpio-shutdown` (pin 26),
   `gpio=15=op,dh` LED, and 2 GHz overclock. The stock file is kept as
-  `config.txt.stock` on the image.
+  `config.txt.stock` on the image. The September 13 CM5 editions add
+  `dtoverlay=dwc2,dr_mode=host` under `[cm5]` to enable the carrier's USB 2
+  keyboard/mouse ports.
 
 ## CM5 variant (2026-09-06)
 

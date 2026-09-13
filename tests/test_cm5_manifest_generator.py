@@ -17,8 +17,8 @@ spec.loader.exec_module(manifest)
 class GeneratorTests(unittest.TestCase):
     def test_both_editions_keep_customization_and_artifact_hashes(self):
         for sd, filename, tag in (
-            (False, "g2-saturn-trixie64-cm5-2026-09-06.img.xz", "2026.09.06-cm5"),
-            (True, "g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz", "2026.09.07-cm5-sd"),
+            (False, "g2-saturn-trixie64-cm5-2026-09-13.img.xz", "2026.09.13-cm5"),
+            (True, "g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz", "2026.09.13-cm5-sd"),
         ):
             with self.subTest(sd=sd), tempfile.TemporaryDirectory() as temp:
                 source = Path(temp) / filename
@@ -39,7 +39,7 @@ class GeneratorTests(unittest.TestCase):
                 self.assertEqual("Lite" in entry["name"], sd)
 
     def test_sd_rejects_emmc_filename(self):
-        with patch("sys.argv", ["cm5-manifest.py", "g2-saturn-trixie64-cm5-2026-09-06.img.xz", "out", "--sd"]), contextlib.redirect_stderr(io.StringIO()):
+        with patch("sys.argv", ["cm5-manifest.py", "g2-saturn-trixie64-cm5-2026-09-13.img.xz", "out", "--sd"]), contextlib.redirect_stderr(io.StringIO()):
             with self.assertRaises(SystemExit) as result:
                 manifest.main()
             self.assertEqual(result.exception.code, 2)

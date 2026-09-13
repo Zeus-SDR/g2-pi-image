@@ -19,13 +19,13 @@
       "name": "ANAN G2 internal Raspberry Pi CM5 image",
       "description": "Screenless G2: Trixie 64-bit, Saturn p2app and CM5 XDMA driver",
       "icon": "https://downloads.raspberrypi.com/imager/icons/RPi_5.png",
-      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.06-cm5/g2-saturn-trixie64-cm5-2026-09-06.img.xz",
+      "url": "https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.13-cm5/g2-saturn-trixie64-cm5-2026-09-13.img.xz",
       "website": "https://github.com/Zeus-SDR/g2-pi-image",
-      "release_date": "2026-09-06",
+      "release_date": "2026-09-13",
       "extract_size": 9452954112,
-      "extract_sha256": "ccc28cd141171453a2b3bed2a18f559e9da9aab37b5f558e40c3c1566c67cd8d",
-      "image_download_size": 1822273496,
-      "image_download_sha256": "f86cb383cf8b2155178bfc30c947a5196ec17230e8f485a9fbc0b064dba07be0",
+      "extract_sha256": "f794f501f5d39b3c2d9719d89e540e54c15d62c0f587a24b332e891e0aa0c2f1",
+      "image_download_size": 1822271140,
+      "image_download_sha256": "3c950953db21e72efe8315a6c1ee9fc80c95ba5689cae1241e1e865bb0c795fa",
       "devices": [
         "pi5-64bit"
       ],

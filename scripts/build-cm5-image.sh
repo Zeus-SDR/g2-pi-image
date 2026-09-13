@@ -45,6 +45,15 @@ printf '%s  %s\n' ab4a75bd93dfaaa04a204ce44ef1723be03f7d747b20f09d77bb5599dd3a30
 loop=$(losetup --find --show --partscan "$output")
 mount "${loop}p2" "$scratch/root"
 mount "${loop}p1" "$scratch/boot"
+# The pinned CM4 base enables its XHCI controller only under [cm4].
+# CM5 needs DWC2 host mode for the Saturn carrier's USB 2 keyboard/mouse ports.
+cat >> "$scratch/boot/config.txt" <<'EOF'
+
+[cm5]
+# Enable the USB 2 host on the Saturn carrier.
+dtoverlay=dwc2,dr_mode=host
+[all]
+EOF
 install -D -m 0644 "$driver" "$scratch/root/lib/modules/$kernel/updates/xdma.ko.xz"
 depmod -b "$scratch/root" "$kernel"
 install -m 0644 "$repo/docs/$first_boot" "$scratch/boot/README-FIRST.txt"

@@ -22,8 +22,8 @@ remains available.
 2. Use a **16 GB or larger microSD card**, a card reader and
    [Raspberry Pi Imager](https://www.raspberrypi.com/software/) **2.0.10 or
    newer**. The raw image is 9,452,954,112 bytes; an 8 GB card is too small.
-3. From the [CM5 SD release](https://github.com/Zeus-SDR/g2-pi-image/releases/tag/2026.09.07-cm5-sd),
-   download [g2-cm5-sd-pi-image.rpi-imager-manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.07-cm5-sd/g2-cm5-sd-pi-image.rpi-imager-manifest).
+3. From the [CM5 SD release](https://github.com/Zeus-SDR/g2-pi-image/releases/tag/2026.09.13-cm5-sd),
+   download [g2-cm5-sd-pi-image.rpi-imager-manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.13-cm5-sd/g2-cm5-sd-pi-image.rpi-imager-manifest).
    Keep its extension and double-click it to open Imager. Alternatively, in
    Imager use **App Options → Content Repository → Edit → Use custom file**,
    select the manifest, apply and restart Imager.
@@ -81,6 +81,10 @@ front-button shutdown after testing. No transmit or FPGA update is needed.
 
 ## Troubleshooting
 
+**USB keyboard/mouse:** the September 7 download is missing the CM5 USB host
+setting. Follow the [boot-config repair](USB-INPUT.md); the input drivers are
+already installed. The September 13 download includes the correction.
+
 | Symptom | Check |
 |---|---|
 | Card ignored or previous system boots | Verify the module is CM5 **Lite**, the card is in the carrier slot, and normal boot mode is selected. An eMMC module cannot use this native slot. If a Lite bootloader was previously customized, consult Raspberry Pi's bootloader documentation before changing it. |
@@ -98,15 +102,15 @@ SHA-256 hashes. To verify a separately downloaded archive:
 
 ```bash
 # macOS
-shasum -a 256 -c g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz.sha256
+shasum -a 256 -c g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz.sha256
 # Linux
-sha256sum -c g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz.sha256
+sha256sum -c g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz.sha256
 ```
 
 On Windows PowerShell:
 
 ```powershell
-Get-FileHash .\g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz -Algorithm SHA256
+Get-FileHash .\g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz -Algorithm SHA256
 ```
 
 Compare the result with the `.sha256` file. Still install through the manifest.
@@ -117,7 +121,9 @@ This is a separate SD download built from the same July CM4 base and pinned
 CM5 XDMA module as the eMMC edition. The only file difference from the eMMC
 edition is the SD first-boot README. Storage is already selected by partition
 UUID in `cmdline.txt` and `fstab`; no eMMC device path needs replacing. The
-kernel, device tree, Saturn source and radio/boot defaults are retained.
+kernel, device tree, Saturn source and radio defaults are retained. The
+current builder additionally enables CM5 USB 2 host mode and checks the
+keyboard/mouse drivers; the September 7 download predates this correction.
 
 On a Linux image-building host, use the dependencies and pinned inputs in
 [the CM5 rebuild guide](CM5.md#rebuild-the-artifact), then run:
@@ -125,10 +131,10 @@ On a Linux image-building host, use the dependencies and pinned inputs in
 ```bash
 sudo bash scripts/build-cm5-image.sh \
   g2-saturn-trixie64-clean-2026-07-05.img.xz xdma.ko.xz \
-  g2-saturn-trixie64-cm5-sd-2026-09-07.img --sd
-sudo xz -T2 -6 -k g2-saturn-trixie64-cm5-sd-2026-09-07.img
+  g2-saturn-trixie64-cm5-sd-2026-09-13.img --sd
+sudo xz -T2 -6 -k g2-saturn-trixie64-cm5-sd-2026-09-13.img
 python3 scripts/cm5-manifest.py --sd \
-  g2-saturn-trixie64-cm5-sd-2026-09-07.img.xz \
+  g2-saturn-trixie64-cm5-sd-2026-09-13.img.xz \
   rebuilt-cm5-sd.rpi-imager-manifest
 ```
 
