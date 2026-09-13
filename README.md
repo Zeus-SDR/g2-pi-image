@@ -9,8 +9,8 @@ It ships with **Raspberry Pi OS Trixie (64 bit)**, the **Saturn `p2app`** runnin
 | G2 module and storage | Download in Raspberry Pi Imager | Instructions | Status |
 |---|---|---|---|
 | Pi 4 / CM4, microSD | [CM4 manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.07.05/g2-pi-image.rpi-imager-manifest) | [CM4 install](#install-it-pi-4--cm4-microsd) | Original release |
-| CM5 with eMMC | [CM5 eMMC manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.06-cm5/g2-cm5-pi-image.rpi-imager-manifest) | [eMMC flashing guide](docs/CM5.md) | Bench-test prerelease |
-| CM5 Lite, microSD (no eMMC) | [CM5 SD manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.07-cm5-sd/g2-cm5-sd-pi-image.rpi-imager-manifest) | [SD flashing guide](docs/CM5-SD.md) | Bench-test prerelease |
+| CM5 with eMMC | [CM5 eMMC manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.13-cm5/g2-cm5-pi-image.rpi-imager-manifest) | [eMMC flashing guide](docs/CM5.md) | Bench-test prerelease |
+| CM5 Lite, microSD (no eMMC) | [CM5 SD manifest](https://github.com/Zeus-SDR/g2-pi-image/releases/download/2026.09.13-cm5-sd/g2-cm5-sd-pi-image.rpi-imager-manifest) | [SD flashing guide](docs/CM5-SD.md) | Bench-test prerelease |
 
 [All three image releases](https://github.com/Zeus-SDR/g2-pi-image/releases)
 include a compressed image and SHA-256 verification. Open the appropriate
@@ -57,6 +57,14 @@ default password. Keep the username `pi`; only the password is yours to choose.
 Default hostname is `g2pi`. Change it in the Imager if you like.
 
 ## Troubleshooting first boot
+
+### CM5 USB keyboard or mouse does not respond
+
+The September 7 CM5 Lite SD and September 6 CM5 eMMC downloads omit the
+CM5 USB host setting. Drivers are already present. Follow the
+[CM5 USB input repair](docs/USB-INPUT.md) to edit the boot configuration
+without reflashing or changing your password. The CM4 image is unaffected
+by this omission. Corrected builds still need physical keyboard/mouse testing.
 
 ### The login prompt rejects my password
 
