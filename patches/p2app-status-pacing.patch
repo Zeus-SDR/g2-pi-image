@@ -1,0 +1,15 @@
+--- a/sw_projects/P2_app/OutHighPriority.c
++++ b/sw_projects/P2_app/OutHighPriority.c
+@@ -226,9 +226,11 @@
+         ADCOverflows |= (uint8_t)GetADCOverflow(&ADC1MaxAmpl, &ADC2MaxAmpl);                // add in any new overflows
+         PeakADC1MaxAmpl = MAX(PeakADC1MaxAmpl, ADC1MaxAmpl);      // get peak hold
+         PeakADC2MaxAmpl = MAX(PeakADC2MaxAmpl, ADC2MaxAmpl);      // get peak hold
++        // Repeated ADC overload must not bypass every pacing interval.
++        // PTT/key changes above still trigger an immediate status message.
++        usleep(500);
+         if(ADCOverflows != 0)
+           break;
+-        usleep(500);
+       }
+     }
+   }
